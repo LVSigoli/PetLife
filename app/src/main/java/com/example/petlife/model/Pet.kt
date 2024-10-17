@@ -7,14 +7,14 @@ enum class Species {
 enum class Sizes{ SMALL, MEDIUM, BIG}
 
 
-data class Pet (var nome: String,
+data class Pet (var name: String,
     var birthDate: String,
     var species: Species,
     var color: String,
     var size: Sizes,
     var lastVeterinarianSeen: String,
     var lastPetShopDate: String,
-    var lastVacinartionDate: String
+    var lastVacinationDate: String
 )
 
 
