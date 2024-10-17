@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         "10/10/2023", "12/09/2023", "05/05/2023"
     )
 
-
     private lateinit var editPetLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,21 +30,20 @@ class MainActivity : AppCompatActivity() {
         editPetLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
 
-                val updatedPetName = result.data?.getStringExtra("updatedName")
-                updatedPetName?.let {
-                    pet.name = it
+                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
+                updatedPet?.let {
+                    pet = it
                     displayPetData()
                 }
             }
         }
-
 
         binding.btnEditPet.setOnClickListener { editPetBinding() }
     }
 
     private fun editPetBinding() {
         val intent = Intent(this, EditPetActivity::class.java)
-        intent.putExtra("name", pet.name)
+        intent.putExtra("pet", pet)
 
         editPetLauncher.launch(intent)
     }

@@ -1,5 +1,7 @@
 package com.example.petlife.model
 
+import java.io.Serializable
+
 enum class Species {
     DOG, CAT
 }
@@ -15,6 +17,6 @@ data class Pet (var name: String,
     var lastVeterinarianSeen: String,
     var lastPetShopDate: String,
     var lastVacinationDate: String
-)
+) : Serializable
 
 
