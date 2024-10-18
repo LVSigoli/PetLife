@@ -30,6 +30,10 @@
             android:name=".EditPetColorActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".EditBirthActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

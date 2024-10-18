@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.petlife.databinding.ActivityEditPetBirthBinding
 import com.example.petlife.databinding.ActivityMainBinding
 import com.example.petlife.model.Pet
 import com.example.petlife.model.Sizes
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var editPetLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetColorLauncher: ActivityResultLauncher<Intent>
+    private lateinit var editPetBirthLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         displayPetData()
 
-        // Launcher para editar os dados do pet
+
         editPetLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
@@ -39,19 +41,33 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Launcher para editar a cor do pet
+
         editPetColorLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
                 updatedPet?.let {
                     pet = it
-                    displayPetData() // Atualiza a exibição com os dados do pet
+                    displayPetData()
+                }
+            }
+        }
+
+        editPetBirthLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
+                updatedPet?.let {
+                    pet = it
+                    displayPetData()
                 }
             }
         }
 
         binding.btnEditPet.setOnClickListener { editPetBinding() }
+
         binding.btnEditPetColor.setOnClickListener { editPetColorBinding() }
+
+        binding.btnEditNascimento.setOnClickListener{editPetBirthBinding()}
+
     }
 
     private fun editPetBinding() {
@@ -63,18 +79,31 @@ class MainActivity : AppCompatActivity() {
     private fun editPetColorBinding() {
         val intent = Intent(this, EditPetColorActivity::class.java)
         intent.putExtra("pet", pet)
-        editPetColorLauncher.launch(intent)  // Inicia a EditPetColorActivity
+        editPetColorLauncher.launch(intent)
+    }
+
+    private fun editPetBirthBinding() {
+        val intent = Intent(this, EditBirthActivity::class.java)
+        intent.putExtra("pet", pet)
+        editPetColorLauncher.launch(intent)
     }
 
     @SuppressLint("SetTextI18n")
     private fun displayPetData() {
-        binding.tvNome.text = "Nome: ${pet.name}"
-        binding.tvDataNascimento.text = "Data de nascimento: ${pet.birthDate}"
+        binding.tvNome.text = "Nome: ${pet.name}" //done
+
         binding.tvTipo.text = "Espécie: ${pet.species}"
-        binding.tvCor.text = "Cor: ${pet.color}"
+
+        binding.tvCor.text = "Cor: ${pet.color}" // done
+
         binding.tvPorte.text = "Porte: ${pet.size}"
-        binding.tvUltimaVet.text = "Última ida ao veterinário: ${pet.lastVeterinarianSeen}"
+
+        binding.tvDataNascimento.text = "Data de nascimento: ${pet.birthDate}"
+
         binding.tvUltimaPetshop.text = "Última ida ao petshop: ${pet.lastPetShopDate}"
+
+        binding.tvUltimaVet.text = "Última ida ao veterinário: ${pet.lastVeterinarianSeen}"
+
         binding.tvUltimaVacinacao.text = "Última vacinação em: ${pet.lastVacinationDate}"
     }
 }
