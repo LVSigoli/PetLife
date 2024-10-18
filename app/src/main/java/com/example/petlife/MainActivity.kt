@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editPetVacinLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetVetLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetShopLauncher: ActivityResultLauncher<Intent>
-    private lateinit var editPetSizeLauncher: ActivityResultLauncher<Intent> // Novo Launcher para tamanho
+    private lateinit var editPetSizeLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetSpeciesLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,89 +34,14 @@ class MainActivity : AppCompatActivity() {
 
         displayPetData()
 
-        // Configuração dos Launchers
-        editPetLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
-                updatedPet?.let {
-                    pet = it
-                    displayPetData()
-                }
-            }
-        }
-
-        editPetColorLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
-                updatedPet?.let {
-                    pet = it
-                    displayPetData()
-                }
-            }
-        }
-
-        editPetBirthLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
-                updatedPet?.let {
-                    pet = it
-                    displayPetData()
-                }
-            }
-        }
-
-        editPetVacinLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
-                updatedPet?.let {
-                    pet = it
-                    displayPetData()
-                }
-            }
-        }
-
-        editPetShopLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
-                updatedPet?.let {
-                    pet = it
-                    displayPetData()
-                }
-            }
-        }
-
-        editPetVetLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
-                updatedPet?.let {
-                    pet = it
-                    displayPetData()
-                }
-            }
-        }
-
-
-        editPetSizeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
-                updatedPet?.let {
-                    pet = it
-                    displayPetData()
-                }
-            }
-        }
-
-        editPetSpeciesLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
-                updatedPet?.let {
-                    pet = it
-                    displayPetData()
-                }
-            }
-        }
-
-
+        editPetLauncher = registerLauncher()
+        editPetColorLauncher = registerLauncher()
+        editPetBirthLauncher = registerLauncher()
+        editPetVacinLauncher = registerLauncher()
+        editPetShopLauncher = registerLauncher()
+        editPetVetLauncher = registerLauncher()
+        editPetSizeLauncher = registerLauncher()
+        editPetSpeciesLauncher = registerLauncher()
 
         binding.btnEditPet.setOnClickListener { editPetBinding() }
         binding.btnEditPetColor.setOnClickListener { editPetColorBinding() }
@@ -124,11 +49,21 @@ class MainActivity : AppCompatActivity() {
         binding.btnEditVacinacao.setOnClickListener { editVacinBinding() }
         binding.btnEditVet.setOnClickListener { editVetBinding() }
         binding.btnEditPetshop.setOnClickListener { editPetShopBinding() }
+        binding.btnEditPetSize.setOnClickListener { editPetSizeBinding() }
+        binding.btnEditPetSpecie.setOnClickListener { editPetSpeciesBinding() }
+    }
 
-
-        binding.btnEditPetSize .setOnClickListener { editPetSizeBinding() }
-
-        binding.btnEditPetSpecie.setOnClickListener{ editPetSpeciesBinding()}
+    // Functions
+    private fun registerLauncher(): ActivityResultLauncher<Intent> {
+        return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
+                updatedPet?.let {
+                    pet = it
+                    displayPetData()
+                }
+            }
+        }
     }
 
     private fun editPetBinding() {
@@ -182,12 +117,20 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun displayPetData() {
         binding.tvNome.text = "Nome: ${pet.name}"
+
         binding.tvTipo.text = "Espécie: ${pet.species}"
+
         binding.tvCor.text = "Cor: ${pet.color}"
+
         binding.tvPorte.text = "Porte: ${pet.size}"
+
         binding.tvDataNascimento.text = "Data de nascimento: ${pet.birthDate}"
+
         binding.tvUltimaPetshop.text = "Última ida ao petshop: ${pet.lastPetShopDate}"
+
         binding.tvUltimaVet.text = "Última ida ao veterinário: ${pet.lastVeterinarianSeen}"
+
         binding.tvUltimaVacinacao.text = "Última vacinação em: ${pet.lastVacinationDate}"
     }
+
 }
