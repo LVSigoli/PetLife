@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editPetVetLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetShopLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetSizeLauncher: ActivityResultLauncher<Intent> // Novo Launcher para tamanho
+    private lateinit var editPetSpeciesLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Novo launcher para editar o tamanho
+
         editPetSizeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
@@ -105,7 +106,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Clicks para edição
+        editPetSpeciesLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
+                updatedPet?.let {
+                    pet = it
+                    displayPetData()
+                }
+            }
+        }
+
+
+
         binding.btnEditPet.setOnClickListener { editPetBinding() }
         binding.btnEditPetColor.setOnClickListener { editPetColorBinding() }
         binding.btnEditNascimento.setOnClickListener { editPetBirthBinding() }
@@ -113,8 +125,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnEditVet.setOnClickListener { editVetBinding() }
         binding.btnEditPetshop.setOnClickListener { editPetShopBinding() }
 
-        // Botão para editar o tamanho
-        binding.btnEditPetSize .setOnClickListener { editPetSizeBinding() } // Botão para editar tamanho
+
+        binding.btnEditPetSize .setOnClickListener { editPetSizeBinding() }
+
+        binding.btnEditPetSpecie.setOnClickListener{ editPetSpeciesBinding()}
     }
 
     private fun editPetBinding() {
@@ -132,42 +146,48 @@ class MainActivity : AppCompatActivity() {
     private fun editPetBirthBinding() {
         val intent = Intent(this, EditBirthActivity::class.java)
         intent.putExtra("pet", pet)
-        editPetBirthLauncher.launch(intent) // Corrigido para usar o launcher correto
+        editPetBirthLauncher.launch(intent)
     }
 
     private fun editVacinBinding() {
         val intent = Intent(this, EditiVacinationActivity::class.java)
         intent.putExtra("pet", pet)
-        editPetVacinLauncher.launch(intent) // Corrigido para usar o launcher correto
+        editPetVacinLauncher.launch(intent)
     }
 
     private fun editVetBinding() {
         val intent = Intent(this, EditiVetActivity::class.java)
         intent.putExtra("pet", pet)
-        editPetVetLauncher.launch(intent) // Corrigido para usar o launcher correto
+        editPetVetLauncher.launch(intent)
     }
 
     private fun editPetShopBinding() {
         val intent = Intent(this, EditPetShopActivity::class.java)
         intent.putExtra("pet", pet)
-        editPetShopLauncher.launch(intent) // Corrigido para usar o launcher correto
+        editPetShopLauncher.launch(intent)
     }
 
     private fun editPetSizeBinding() {
         val intent = Intent(this, EditPetSizeActivity::class.java)
         intent.putExtra("pet", pet)
-        editPetSizeLauncher.launch(intent) // Lançar a atividade para editar o tamanho
+        editPetSizeLauncher.launch(intent)
+    }
+
+    private fun editPetSpeciesBinding() {
+        val intent = Intent(this, EditPetSpeciesActivity::class.java)
+        intent.putExtra("pet", pet)
+        editPetSpeciesLauncher.launch(intent)
     }
 
     @SuppressLint("SetTextI18n")
     private fun displayPetData() {
-        binding.tvNome.text = "Nome: ${pet.name}" //done
+        binding.tvNome.text = "Nome: ${pet.name}"
         binding.tvTipo.text = "Espécie: ${pet.species}"
-        binding.tvCor.text = "Cor: ${pet.color}" // done
-        binding.tvPorte.text = "Porte: ${pet.size}" // Mostrando o tamanho do pet
-        binding.tvDataNascimento.text = "Data de nascimento: ${pet.birthDate}" //done
-        binding.tvUltimaPetshop.text = "Última ida ao petshop: ${pet.lastPetShopDate}" //done
-        binding.tvUltimaVet.text = "Última ida ao veterinário: ${pet.lastVeterinarianSeen}" //done
-        binding.tvUltimaVacinacao.text = "Última vacinação em: ${pet.lastVacinationDate}" // done
+        binding.tvCor.text = "Cor: ${pet.color}"
+        binding.tvPorte.text = "Porte: ${pet.size}"
+        binding.tvDataNascimento.text = "Data de nascimento: ${pet.birthDate}"
+        binding.tvUltimaPetshop.text = "Última ida ao petshop: ${pet.lastPetShopDate}"
+        binding.tvUltimaVet.text = "Última ida ao veterinário: ${pet.lastVeterinarianSeen}"
+        binding.tvUltimaVacinacao.text = "Última vacinação em: ${pet.lastVacinationDate}"
     }
 }

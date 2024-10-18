@@ -50,6 +50,9 @@
             android:name=".EditPetSizeActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".EditPetSpeciesActivity"
+            android:exported="true" />
 
     </application>
 
