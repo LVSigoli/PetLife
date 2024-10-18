@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editPetColorLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetBirthLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetVacinLauncher: ActivityResultLauncher<Intent>
+    private lateinit var editPetVetLauncher: ActivityResultLauncher<Intent>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,12 +74,26 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+        editPetVetLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
+                updatedPet?.let {
+                    pet = it
+                    displayPetData()
+                }
+            }
+        }
+
         binding.btnEditPet.setOnClickListener { editPetBinding() }
 
         binding.btnEditPetColor.setOnClickListener { editPetColorBinding() }
 
         binding.btnEditNascimento.setOnClickListener{editPetBirthBinding()}
+
         binding.btnEditVacinacao.setOnClickListener{editVacinBinding()}
+
+        binding.btnEditVet.setOnClickListener{editVetBinding()}
 
     }
 
@@ -102,6 +117,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun editVacinBinding() {
         val intent = Intent(this, EditiVacinationActivity::class.java)
+        intent.putExtra("pet", pet)
+        editPetColorLauncher.launch(intent)
+    }
+
+    private fun editVetBinding() {
+        val intent = Intent(this, EditiVetActivity::class.java)
         intent.putExtra("pet", pet)
         editPetColorLauncher.launch(intent)
     }

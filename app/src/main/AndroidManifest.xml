@@ -38,6 +38,10 @@
             android:name=".EditiVacinationActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".EditiVetActivity"
+            android:exported="true" />
+
 
     </application>
 
