@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.example.petlife.databinding.ActivityEditPetBirthBinding
 import com.example.petlife.databinding.ActivityMainBinding
 import com.example.petlife.model.Pet
 import com.example.petlife.model.Sizes
@@ -22,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editPetLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetColorLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetBirthLauncher: ActivityResultLauncher<Intent>
+    private lateinit var editPetVacinLauncher: ActivityResultLauncher<Intent>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,11 +63,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        editPetVacinLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
+                updatedPet?.let {
+                    pet = it
+                    displayPetData()
+                }
+            }
+        }
+
         binding.btnEditPet.setOnClickListener { editPetBinding() }
 
         binding.btnEditPetColor.setOnClickListener { editPetColorBinding() }
 
         binding.btnEditNascimento.setOnClickListener{editPetBirthBinding()}
+        binding.btnEditVacinacao.setOnClickListener{editVacinBinding()}
 
     }
 
@@ -88,6 +100,12 @@ class MainActivity : AppCompatActivity() {
         editPetColorLauncher.launch(intent)
     }
 
+    private fun editVacinBinding() {
+        val intent = Intent(this, EditiVacinationActivity::class.java)
+        intent.putExtra("pet", pet)
+        editPetColorLauncher.launch(intent)
+    }
+
     @SuppressLint("SetTextI18n")
     private fun displayPetData() {
         binding.tvNome.text = "Nome: ${pet.name}" //done
@@ -98,12 +116,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.tvPorte.text = "Porte: ${pet.size}"
 
-        binding.tvDataNascimento.text = "Data de nascimento: ${pet.birthDate}"
+        binding.tvDataNascimento.text = "Data de nascimento: ${pet.birthDate}" //done
 
         binding.tvUltimaPetshop.text = "Última ida ao petshop: ${pet.lastPetShopDate}"
 
         binding.tvUltimaVet.text = "Última ida ao veterinário: ${pet.lastVeterinarianSeen}"
 
-        binding.tvUltimaVacinacao.text = "Última vacinação em: ${pet.lastVacinationDate}"
+        binding.tvUltimaVacinacao.text = "Última vacinação em: ${pet.lastVacinationDate}"// done
     }
 }
