@@ -23,6 +23,13 @@
         android:text="Editar Pet" />
 
     <Button
+        android:id="@+id/btnEditPetColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar Cor" />
+
+
+    <Button
         android:id="@+id/btnEditPetshop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

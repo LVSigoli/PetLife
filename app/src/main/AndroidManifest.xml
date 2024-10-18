@@ -26,6 +26,10 @@
             android:name=".EditPetActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".EditPetColorActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>
