@@ -29,6 +29,18 @@
         android:text="Editar Cor" />
 
     <Button
+        android:id="@+id/btnEditPetSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar Porte" />
+
+    <Button
+        android:id="@+id/btnEditPetSpecie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar Especie" />
+
+    <Button
         android:id="@+id/btnEditNascimento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
