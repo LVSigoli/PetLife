@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editPetBirthLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetVacinLauncher: ActivityResultLauncher<Intent>
     private lateinit var editPetVetLauncher: ActivityResultLauncher<Intent>
+    private lateinit var editPetShopLauncher:  ActivityResultLauncher<Intent>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +75,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        editPetShopLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val updatedPet = result.data?.getSerializableExtra("pet") as? Pet
+                updatedPet?.let {
+                    pet = it
+                    displayPetData()
+                }
+            }
+        }
 
         editPetVetLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -94,6 +104,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnEditVacinacao.setOnClickListener{editVacinBinding()}
 
         binding.btnEditVet.setOnClickListener{editVetBinding()}
+
+        binding.btnEditPetshop.setOnClickListener{editPetShopBinding()}
 
     }
 
@@ -127,6 +139,12 @@ class MainActivity : AppCompatActivity() {
         editPetColorLauncher.launch(intent)
     }
 
+    private fun editPetShopBinding() {
+        val intent = Intent(this, EditPetShopActivity::class.java)
+        intent.putExtra("pet", pet)
+        editPetColorLauncher.launch(intent)
+    }
+
     @SuppressLint("SetTextI18n")
     private fun displayPetData() {
         binding.tvNome.text = "Nome: ${pet.name}" //done
@@ -139,9 +157,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.tvDataNascimento.text = "Data de nascimento: ${pet.birthDate}" //done
 
-        binding.tvUltimaPetshop.text = "Última ida ao petshop: ${pet.lastPetShopDate}"
+        binding.tvUltimaPetshop.text = "Última ida ao petshop: ${pet.lastPetShopDate}" //done
 
-        binding.tvUltimaVet.text = "Última ida ao veterinário: ${pet.lastVeterinarianSeen}"
+        binding.tvUltimaVet.text = "Última ida ao veterinário: ${pet.lastVeterinarianSeen}"//done
 
         binding.tvUltimaVacinacao.text = "Última vacinação em: ${pet.lastVacinationDate}"// done
     }

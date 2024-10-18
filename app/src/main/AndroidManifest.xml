@@ -42,6 +42,10 @@
             android:name=".EditiVetActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".EditPetShopActivity"
+            android:exported="true" />
+
 
     </application>
 
