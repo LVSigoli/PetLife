@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Dados do Pet -->
+
     <TextView android:id="@+id/tvNome" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     <TextView android:id="@+id/tvDataNascimento" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     <TextView android:id="@+id/tvTipo" android:layout_width="wrap_content" android:layout_height="wrap_content" />
@@ -15,37 +15,12 @@
     <TextView android:id="@+id/tvUltimaPetshop" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     <TextView android:id="@+id/tvUltimaVacinacao" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 
-    <!-- Botões de edição -->
+
     <Button
         android:id="@+id/btnEditPet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Editar Pet" />
-
-    <Button
-        android:id="@+id/btnEditPetColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar Cor" />
-
-    <Button
-        android:id="@+id/btnEditPetSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar Porte" />
-
-    <Button
-        android:id="@+id/btnEditPetSpecie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar Especie" />
-
-    <Button
-        android:id="@+id/btnEditNascimento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar Nascimento" />
-
 
     <Button
         android:id="@+id/btnEditPetshop"
