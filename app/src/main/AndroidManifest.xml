@@ -26,13 +26,6 @@
             android:name=".EditPetActivity"
             android:exported="true" />
 
-        <activity
-            android:name=".EditPetColorActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".EditBirthActivity"
-            android:exported="true" />
 
         <activity
             android:name=".EditiVacinationActivity"
@@ -46,13 +39,7 @@
             android:name=".EditPetShopActivity"
             android:exported="true" />
 
-        <activity
-            android:name=".EditPetSizeActivity"
-            android:exported="true" />
 
-        <activity
-            android:name=".EditPetSpeciesActivity"
-            android:exported="true" />
 
     </application>
 
