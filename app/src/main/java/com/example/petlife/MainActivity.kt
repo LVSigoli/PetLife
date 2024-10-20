@@ -44,13 +44,12 @@ class MainActivity : AppCompatActivity() {
         editPetSpeciesLauncher = registerLauncher()
 
         binding.btnEditPet.setOnClickListener { editPetBinding() }
-        binding.btnEditPetColor.setOnClickListener { editPetColorBinding() }
-        binding.btnEditNascimento.setOnClickListener { editPetBirthBinding() }
+
+
         binding.btnEditVacinacao.setOnClickListener { editVacinBinding() }
         binding.btnEditVet.setOnClickListener { editVetBinding() }
         binding.btnEditPetshop.setOnClickListener { editPetShopBinding() }
-        binding.btnEditPetSize.setOnClickListener { editPetSizeBinding() }
-        binding.btnEditPetSpecie.setOnClickListener { editPetSpeciesBinding() }
+
     }
 
     // Functions
@@ -72,17 +71,7 @@ class MainActivity : AppCompatActivity() {
         editPetLauncher.launch(intent)
     }
 
-    private fun editPetColorBinding() {
-        val intent = Intent(this, EditPetColorActivity::class.java)
-        intent.putExtra("pet", pet)
-        editPetColorLauncher.launch(intent)
-    }
 
-    private fun editPetBirthBinding() {
-        val intent = Intent(this, EditBirthActivity::class.java)
-        intent.putExtra("pet", pet)
-        editPetBirthLauncher.launch(intent)
-    }
 
     private fun editVacinBinding() {
         val intent = Intent(this, EditiVacinationActivity::class.java)
@@ -102,17 +91,9 @@ class MainActivity : AppCompatActivity() {
         editPetShopLauncher.launch(intent)
     }
 
-    private fun editPetSizeBinding() {
-        val intent = Intent(this, EditPetSizeActivity::class.java)
-        intent.putExtra("pet", pet)
-        editPetSizeLauncher.launch(intent)
-    }
 
-    private fun editPetSpeciesBinding() {
-        val intent = Intent(this, EditPetSpeciesActivity::class.java)
-        intent.putExtra("pet", pet)
-        editPetSpeciesLauncher.launch(intent)
-    }
+
+
 
     @SuppressLint("SetTextI18n")
     private fun displayPetData() {
